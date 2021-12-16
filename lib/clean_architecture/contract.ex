@@ -3,7 +3,7 @@ defmodule CleanArchitecture.Contract do
   Default functons for input pattern necessary to perform an action.
   """
 
-  def dummy() do
+  def dummy do
     1 + 1
   end
 end

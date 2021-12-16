@@ -61,5 +61,4 @@ defmodule CleanArchitecture.Contract do
         end
       end
     end
-  end
 end

@@ -27,6 +27,20 @@ end
 
 Contract is responsible to parse and validate the Use Case input. It is based on Ecto Schema to handle validations. If the input is valid, the Use Case will be excecuted, otherwise it will fail with a standard `{:error, %Ecto.Changeset{}}` response.
 
+#### Using
+
+```elixir
+input = %{name: "Foo"}
+
+case MyAppName.Contracts.MyActionName.validate_input(input) do
+  {:ok, validated_input} ->
+    # Do something with the validated input
+
+  {:error, %Ecto.Changeset{} = changeset} ->
+    {:error, changeset}
+end
+```
+
 ### Interactor
 
 Interactors consolidates all the business rules and Use Case steps. It assumes that the input has already been validated and is responsible to return an output after the excecution.

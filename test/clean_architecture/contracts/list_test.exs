@@ -10,6 +10,13 @@ defmodule CleanArchitecture.Contracts.ListTest do
   }
 
   describe "changeset" do
+    test "sets default page and page_size attributes when not informed" do
+      changeset = ContractListMock.changeset(%{some_required_field: "foobar"})
+
+      assert Ecto.Changeset.get_field(changeset, :page) == 1
+      assert Ecto.Changeset.get_field(changeset, :page_size) == 10
+    end
+
     test "creates valid changeset when all parameters are valid" do
       changeset = ContractListMock.changeset(@valid_attrs)
 
@@ -20,11 +27,7 @@ defmodule CleanArchitecture.Contracts.ListTest do
       changeset = ContractListMock.changeset(%{page: nil, page_size: nil})
 
       assert Enum.sort(changeset.errors) ==
-               Enum.sort(
-                 page: {"can't be blank", [validation: :required]},
-                 page_size: {"can't be blank", [validation: :required]},
-                 some_required_field: {"can't be blank", [validation: :required]}
-               )
+               [some_required_field: {"can't be blank", [validation: :required]}]
     end
 
     test "does not return error when page is above zero" do

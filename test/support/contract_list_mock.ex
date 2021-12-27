@@ -19,6 +19,7 @@ defmodule CleanArchitecture.Support.ContractListMock do
   def changeset(%{} = attrs) do
     %__MODULE__{}
     |> cast(attrs, pagination_fields() ++ [:some_required_field])
+    |> put_default_pagination_changes()
     |> validate_required(pagination_fields() ++ [:some_required_field])
     |> validate_pagination()
   end

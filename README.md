@@ -27,6 +27,49 @@ end
 
 Contract is responsible to parse and validate the Use Case input. It is based on Ecto Schema to handle validations. If the input is valid, the Use Case will be excecuted, otherwise it will fail with a standard `{:error, %Ecto.Changeset{}}` response.
 
+#### Defining contracts
+
+##### Default contract
+
+```elixir
+defmodule MyAppName.Contracts.Users.Create do
+  use CleanArchitecture.Contract
+
+  embedded_schema do
+    field(:name, :string)
+    field(:last_name, :string)
+    field(:other, :string)
+  end
+
+  def changeset(%{} = attrs) do
+    %__MODULE__{}
+    |> cast(attrs, [:name, :last_name, :other])
+    |> validate_required([:name])
+  end
+end
+```
+
+##### List contract
+
+```elixir
+defmodule MyAppName.Contracts.Users.List do
+  use CleanArchitecture.Contracts.List
+
+  embedded_schema do
+    pagination_schema_fields()
+    field(:some_field, :string)
+  end
+
+  def changeset(%{} = attrs) do
+    %__MODULE__{}
+    |> cast(attrs, pagination_fields() ++ [:some_field])
+    |> put_default_pagination_changes()
+    |> validate_required(pagination_fields() ++ [:some_field])
+    |> validate_pagination()
+  end
+end
+```
+
 #### Using
 
 ```elixir

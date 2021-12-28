@@ -38,6 +38,7 @@ defmodule CleanArchitecture.MixProject do
       # Test
       {:excoveralls, "~> 0.14", only: :test, runtime: false},
       {:junit_formatter, "~> 3.3", only: :test, runtime: false},
+      {:mock, "~> 0.3", only: :test},
 
       # Lint
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},

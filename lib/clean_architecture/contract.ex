@@ -55,9 +55,34 @@ defmodule CleanArchitecture.Contract do
         input_changeset = changeset(input)
 
         if input_changeset.valid? do
-          {:ok, input_changeset.changes}
+          {:ok, get_input_changes(input_changeset)}
         else
           {:error, input_changeset}
+        end
+      end
+
+      defp get_input_changes(%Ecto.Changeset{changes: changes} = input_changeset) do
+        Enum.reduce(changes, %{}, fn {key, value}, acc ->
+          put_input_changes_into_map(acc, key, value)
+        end)
+      end
+
+      defp put_input_changes_into_map(map, key, value) do
+        case value do
+          %Ecto.Changeset{} ->
+            Map.put(map, key, get_input_changes(value))
+
+          [_head | _tail] ->
+
+            reduced_list =
+              Enum.reduce(value, [], fn list_value, map ->
+                map ++ [get_input_changes(list_value)]
+              end)
+
+            Map.put(map, key, reduced_list)
+
+          _ ->
+            Map.put(map, key, value)
         end
       end
     end

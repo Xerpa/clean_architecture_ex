@@ -142,20 +142,29 @@ defmodule CleanArchitecture.ContractTest do
 
   describe "validate_input/1" do
     test "returns error when is invalid" do
-      assert ContractMock.validate_input(%{}) ==
-               {:error,
-                %Ecto.Changeset{
-                  params: %{},
-                  required: [:name],
-                  types: %{last_name: :string, name: :string, other: :string},
-                  errors: [name: {"can't be blank", [validation: :required]}],
-                  data: %ContractMock{}
-                }}
+      assert {:error,
+              %Ecto.Changeset{
+                params: %{},
+                required: [:name],
+                types: %{last_name: :string, name: :string, other: :string, nested: _nested},
+                errors: [name: {"can't be blank", [validation: :required]}],
+                data: %ContractMock{}
+              }} = ContractMock.validate_input(%{})
     end
 
     test "returns input changes when is valid" do
       assert ContractMock.validate_input(%{name: "Foo"}) ==
                {:ok, %{name: "Foo"}}
+    end
+
+    test "returns input changes with nested when is valid" do
+      assert ContractMock.validate_input(%{name: "Foo", nested: %{name: "Bar", foo: "bar"}}) ==
+               {:ok, %{name: "Foo", nested: %{name: "Bar"}}}
+    end
+
+    test "returns input changes with nested list when is valid" do
+      assert ContractMock.validate_input(%{name: "Foo", nested_list: [%{name: "Bar", foo: "bar"}]}) ==
+               {:ok, %{name: "Foo", nested_list: [%{name: "Bar"}]}}
     end
   end
 end

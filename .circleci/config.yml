@@ -15,6 +15,19 @@ workflows:
       - test:
           requires:
             - setup
+      - publish_approval:
+          type: approval
+          requires:
+            - static_analysis
+            - test
+          # TODO: Uncomment after testing first publish
+          # filters:
+          #   branches:
+          #     only:
+          #       - main
+      - publish:
+          requires:
+            - publish_approval
 
 default_env: &default_env
   CACHE_VERSION: v1
@@ -109,3 +122,12 @@ jobs:
       - store_artifacts:
           path: /usr/app/cover
           destination: coverage_results
+
+  publish:
+    executor: default
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /usr/app
+      - run: mix local.hex --force
+      - run: mix hex.publish --yes

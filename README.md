@@ -49,6 +49,31 @@ defmodule MyAppName.Contracts.Users.Create do
 end
 ```
 
+##### Nested contract
+
+```elixir
+defmodule MyAppName.Contracts.Users.CreateBatch do
+  use CleanArchitecture.Contract
+
+  embedded_schema do
+    field(:some_field, :string)
+
+    embeds_many(:users, MyAppName.Contracts.Users.Create)
+  end
+
+  def changeset(%{} = attrs) do
+    changeset(%__MODULE__{}, attrs)
+  end
+
+  def changeset(%__MODULE__{} = contract, %{} = attrs) do
+    contract
+    |> cast(attrs, [:some_field])
+    |> cast_embed(:users, required: false)
+    |> validate_required([:some_field])
+  end
+end
+```
+
 ##### List contract
 
 ```elixir

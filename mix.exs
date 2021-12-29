@@ -5,9 +5,11 @@ defmodule CleanArchitecture.MixProject do
     [
       app: :clean_architecture,
       version: "0.1.0",
-      elixir: "~> 1.12",
+      elixir: "~> 1.13",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
+      description: description(),
+      package: package(),
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
@@ -16,6 +18,20 @@ defmodule CleanArchitecture.MixProject do
         "coveralls.post": :test,
         "coveralls.html": :test
       ]
+    ]
+  end
+
+  defp description do
+    "Library that contains modules used to develop an Elixir Application using Clean Architecture."
+  end
+
+  defp package() do
+    [
+      name: "clean_architecture",
+      # These are the default files included in the package
+      files: ~w(lib .formatter.exs mix.exs README* LICENSE* CHANGELOG*),
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/Xerpa/clean_architecture_ex"}
     ]
   end
 

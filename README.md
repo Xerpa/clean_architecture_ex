@@ -29,7 +29,7 @@ Contract is responsible to parse and validate the Use Case input. It is based on
 
 #### Defining contracts
 
-##### Default contract
+##### Default contract example
 
 ```elixir
 defmodule MyAppName.Contracts.Users.Create do
@@ -49,7 +49,7 @@ defmodule MyAppName.Contracts.Users.Create do
 end
 ```
 
-##### Nested contract
+##### Nested contract example
 
 ```elixir
 defmodule MyAppName.Contracts.Users.CreateBatch do
@@ -74,7 +74,7 @@ defmodule MyAppName.Contracts.Users.CreateBatch do
 end
 ```
 
-##### List contract
+##### List contract example
 
 ```elixir
 defmodule MyAppName.Contracts.Users.List do
@@ -95,7 +95,7 @@ defmodule MyAppName.Contracts.Users.List do
 end
 ```
 
-#### Using
+#### Example
 
 ```elixir
 input = %{name: "Foo"}
@@ -113,9 +113,29 @@ end
 
 Interactors consolidates all the business rules and Use Case steps. It assumes that the input has already been validated and is responsible to return an output after the excecution.
 
+#### Example
+
+```elixir
+defmodule MyAppName.Interactors.Users.Create do
+  use CleanArchitecture.Interactor
+
+  # ...
+end
+```
+
 ### Entity
 
 Represents a business entity. Is usually a struct based on Ecto. It's attributes are names according to business terms to achieve a common language between developers and business/product specialists (Ubiquitous Language).
+
+#### Example
+
+```elixir
+defmodule MyAppName.Entities.User do
+  use CleanArchitecture.Entity
+
+  # ...
+end
+```
 
 ### Bounded context
 
@@ -124,3 +144,13 @@ Is responsible to expose all the domain/context Use Cases. It handles the input 
 It's an interface between the business logic and the delivery mechanisms and other contexts.
 
 It is also responsibility of the bounded context to make the input and output explicit.
+
+#### Example
+
+```elixir
+defmodule MyAppName do
+  use CleanArchitecture.BoundedContext
+
+  # ...
+end
+```

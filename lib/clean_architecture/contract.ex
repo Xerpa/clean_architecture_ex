@@ -73,7 +73,6 @@ defmodule CleanArchitecture.Contract do
             Map.put(map, key, get_input_changes(value))
 
           [_head | _tail] ->
-
             reduced_list =
               Enum.reduce(value, [], fn list_value, map ->
                 map ++ [get_input_changes(list_value)]

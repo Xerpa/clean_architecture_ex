@@ -51,6 +51,9 @@ defmodule CleanArchitecture.MixProject do
     [
       {:ecto, "~> 3.4"},
 
+      # Docs
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
+
       # Test
       {:excoveralls, "~> 0.14", only: :test, runtime: false},
       {:junit_formatter, "~> 3.3", only: :test, runtime: false},

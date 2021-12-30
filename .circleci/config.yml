@@ -126,8 +126,12 @@ jobs:
   publish:
     executor: default
     resource_class: small
+    environment:
+      <<: *default_env
+      MIX_ENV: dev
     steps:
       - attach_workspace:
           at: /usr/app
       - run: mix local.hex --force
+      - run: mix deps.get
       - run: mix hex.publish --yes

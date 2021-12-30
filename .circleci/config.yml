@@ -20,11 +20,10 @@ workflows:
           requires:
             - static_analysis
             - test
-          # TODO: Uncomment after testing first publish
-          # filters:
-          #   branches:
-          #     only:
-          #       - main
+          filters:
+            branches:
+              only:
+                - main
       - publish:
           requires:
             - publish_approval

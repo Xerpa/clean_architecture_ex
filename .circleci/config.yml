@@ -133,5 +133,7 @@ jobs:
       - attach_workspace:
           at: /usr/app
       - run: mix local.hex --force
+      - run: mix local.rebar --force
       - run: mix deps.get
+      - run: mix deps.compile --force
       - run: mix hex.publish --yes

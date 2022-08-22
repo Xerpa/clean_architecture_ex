@@ -31,7 +31,7 @@ defmodule CleanArchitecture.MixProject do
       # These are the default files included in the package
       files: ~w(lib .formatter.exs mix.exs README* LICENSE* CHANGELOG*),
       licenses: ["MIT"],
-      links: %{"GitHub" => "https://github.com/Xerpa/clean_architecture_ex"}
+      links: %{"GitHub" => "https://github.com/gobetterfly/clean_architecture_ex"}
     ]
   end
 

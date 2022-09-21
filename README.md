@@ -9,7 +9,7 @@ The package can be installed by adding `clean_architecture` to your list of depe
 ```elixir
 def deps do
   [
-    {:clean_architecture, "~> 0.1.0"}
+    {:clean_architecture, "~> 0.1.1"}
   ]
 end
 ```

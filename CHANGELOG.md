@@ -3,6 +3,7 @@
 ## 0.1.1 (2022-09-21)
 
 * **[Contract]** Fix issue when contract has a field of the type array.
+* **[Chore]** Dependencies updated.
 
 ## 0.1.0 (2021-12-30)
 

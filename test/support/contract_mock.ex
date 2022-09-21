@@ -16,6 +16,7 @@ defmodule CleanArchitecture.Support.ContractMock do
     field(:name, :string)
     field(:last_name, :string)
     field(:other, :string)
+    field(:list_of_strings, {:array, :string})
 
     embeds_one(:nested, CleanArchitecture.Support.ContractMock)
     embeds_many(:nested_list, CleanArchitecture.Support.ContractMock)
@@ -27,7 +28,7 @@ defmodule CleanArchitecture.Support.ContractMock do
 
   def changeset(%__MODULE__{} = mock, %{} = attrs) do
     mock
-    |> cast(attrs, [:name, :last_name, :other])
+    |> cast(attrs, [:name, :last_name, :other, :list_of_strings])
     |> cast_embed(:nested, required: false)
     |> cast_embed(:nested_list, required: false)
     |> validate_required([:name])

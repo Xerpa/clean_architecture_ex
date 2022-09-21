@@ -166,5 +166,10 @@ defmodule CleanArchitecture.ContractTest do
       assert ContractMock.validate_input(%{name: "Foo", nested_list: [%{name: "Bar", foo: "bar"}]}) ==
                {:ok, %{name: "Foo", nested_list: [%{name: "Bar"}]}}
     end
+
+    test "returns input changes with list os strings" do
+      assert ContractMock.validate_input(%{name: "Foo", list_of_strings: ["Bar"]}) ==
+               {:ok, %{name: "Foo", list_of_strings: ["Bar"]}}
+    end
   end
 end

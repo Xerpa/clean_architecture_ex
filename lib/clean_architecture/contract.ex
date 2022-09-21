@@ -67,6 +67,8 @@ defmodule CleanArchitecture.Contract do
         end)
       end
 
+      defp get_input_changes(value), do: value
+
       defp put_input_changes_into_map(map, key, value) do
         case value do
           %Ecto.Changeset{} ->
